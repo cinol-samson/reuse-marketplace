@@ -2,20 +2,32 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { strings } from '../../strings';
 import { SketchHeroReuse } from '../sketches/SketchIcons';
+import { useAuth } from '../../context/AuthContext';
 
 export const NavBar: React.FC = () => {
-  const navItems = [
+  const { isAuthenticated } = useAuth();
+
+  const coreNavItems = [
     { to: '/', label: strings.nav.home },
     { to: '/nearby', label: strings.nav.nearby },
     { to: '/artist-posts', label: strings.nav.artistPosts },
-    { to: '/items/new', label: strings.nav.postItem },
-    { to: '/inbox', label: strings.nav.inbox },
-    { to: '/notifications', label: strings.nav.notifications },
-    { to: '/profile', label: strings.nav.profile },
   ];
 
-  const activeClass =
-    'text-clay-400 font-semibold border-b-2 border-clay-300 pb-1';
+  const authNavItems = isAuthenticated
+    ? [
+        { to: '/items/new', label: strings.nav.postItem },
+        { to: '/inbox', label: strings.nav.inbox },
+        { to: '/notifications', label: strings.nav.notifications },
+        { to: '/profile', label: strings.nav.profile },
+      ]
+    : [
+        { to: '/login', label: 'Sign in' },
+        { to: '/register', label: 'Register' },
+      ];
+
+  const navItems = [...coreNavItems, ...authNavItems];
+
+  const activeClass = 'text-clay-400 font-semibold border-b-2 border-clay-300 pb-1';
   const inactiveClass =
     'text-earth-100 hover:text-earth transition-colors pb-1 border-b-2 border-transparent';
 
@@ -41,6 +53,7 @@ export const NavBar: React.FC = () => {
             <NavLink
               key={item.to}
               to={item.to}
+              end={item.to === '/'}
               className={({ isActive }) => (isActive ? activeClass : inactiveClass)}
             >
               {item.label}

@@ -1,0 +1,52 @@
+// Stage 1 user / auth strings
+export const authStrings = {
+  register: {
+    title: 'Create an account',
+    subtitle: 'Join the community — share, donate, and discover reusable materials.',
+    emailLabel: 'Email address',
+    emailPlaceholder: 'you@example.com',
+    passwordLabel: 'Password',
+    passwordPlaceholder: 'At least 8 characters, with a digit or symbol',
+    displayNameLabel: 'Display name',
+    displayNamePlaceholder: 'How others will see you',
+    artistLabel: 'I am an artist or maker',
+    ragPickerLabel: 'I am a rag picker (material collector)',
+    submitBtn: 'Create account',
+    loginLink: 'Already have an account? Sign in',
+    errors: {
+      emailTaken: 'This email address is already registered.',
+      weakPassword: 'Password must be at least 8 characters and contain a digit or special character.',
+      generic: 'Registration failed. Please try again.',
+    },
+  },
+  login: {
+    title: 'Sign in',
+    subtitle: 'Welcome back to the Reuse Marketplace.',
+    emailLabel: 'Email address',
+    passwordLabel: 'Password',
+    submitBtn: 'Sign in',
+    registerLink: "Don't have an account? Register",
+    errors: {
+      invalidCredentials: 'Incorrect email or password.',
+      suspended: 'Your account has been suspended.',
+      generic: 'Sign-in failed. Please try again.',
+    },
+  },
+  profile: {
+    title: 'My profile',
+    editTitle: 'Edit profile',
+    displayNameLabel: 'Display name',
+    artistLabel: 'Artist / maker',
+    ragPickerLabel: 'Rag picker',
+    discoverableLabel: 'Appear in discovery search',
+    homeAreaLabel: 'Area label (neighbourhood or district)',
+    homeAreaPlaceholder: 'e.g. East Riverside',
+    saveBtn: 'Save changes',
+    logoutBtn: 'Sign out',
+    completedExchanges: 'completed exchanges',
+    memberSince: 'Member since',
+    errors: {
+      generic: 'Failed to save profile.',
+    },
+  },
+} as const;
