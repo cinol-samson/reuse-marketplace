@@ -1,0 +1,77 @@
+gemini.md
+
+# Environment variables (never commit real secrets)
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+*.egg
+.eggs/
+pip-wheel-metadata/
+*.whl
+
+# Virtual environments
+venv/
+.venv/
+env/
+.env/
+ENV/
+
+# pytest / coverage
+.pytest_cache/
+.coverage
+coverage/
+coverage.xml
+htmlcov/
+.hypothesis/
+
+# mypy
+.mypy_cache/
+*.pyi
+
+# ruff
+.ruff_cache/
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Vite / build output
+frontend/dist/
+frontend/.vite/
+dist/
+.vite/
+
+# TypeScript
+*.tsbuildinfo
+
+# Uploads / temp files
+uploads/
+tmp/
+*.tmp
+
+# Editor files
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.DS_Store
+Thumbs.db
+
+# Docker
+*.pid

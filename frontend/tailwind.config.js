@@ -1,0 +1,155 @@
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+  theme: {
+    extend: {
+      // ── Wabi-Sabi color tokens ───────────────────────────────────────────
+      colors: {
+        // Base palette
+        ivory: {
+          DEFAULT: '#F8F4ED',
+          50: '#FDFBF8',
+          100: '#F8F4ED',
+          200: '#F0E9DA',
+        },
+        beige: {
+          DEFAULT: '#E8DFD0',
+          50: '#F5F0E8',
+          100: '#E8DFD0',
+          200: '#D5C9B4',
+        },
+        sage: {
+          DEFAULT: '#7A9B8A',
+          50: '#EDF2EF',
+          100: '#C6D8CE',
+          200: '#9BBDAE',
+          300: '#7A9B8A',
+          400: '#5E7D6C',
+          500: '#4A6355',
+        },
+        clay: {
+          DEFAULT: '#B5704A',
+          50: '#F5E8DF',
+          100: '#DEB99E',
+          200: '#C98E6A',
+          300: '#B5704A',
+          400: '#9A5C39',
+          500: '#7D4729',
+        },
+        stone: {
+          DEFAULT: '#9B9589',
+          50: '#F0EFED',
+          100: '#D6D3CE',
+          200: '#B8B4AD',
+          300: '#9B9589',
+          400: '#7E786E',
+          500: '#635D54',
+        },
+        earth: {
+          DEFAULT: '#2C2519',
+          50: '#8C7B5E',
+          100: '#5E5040',
+          200: '#3D3227',
+          300: '#2C2519',
+          text: '#2C2519',
+        },
+        // Functional colors – muted, in the Wabi-Sabi family
+        success: {
+          DEFAULT: '#4A7C5F',
+          light: '#EDF5F0',
+          text: '#2F5940',
+        },
+        warning: {
+          DEFAULT: '#9B7A2E',
+          light: '#FBF5E6',
+          text: '#7A5E1A',
+        },
+        error: {
+          DEFAULT: '#9B3A2E',
+          light: '#F7ECEA',
+          text: '#7A2318',
+        },
+        info: {
+          DEFAULT: '#3A6B9B',
+          light: '#EAF0F7',
+          text: '#234F7A',
+        },
+      },
+
+      // ── Typography ───────────────────────────────────────────────────────
+      fontFamily: {
+        // Heading: expressive serif – Playfair Display (loaded via CSS @import)
+        heading: ['Playfair Display', 'Georgia', 'serif'],
+        // Interface: clean humanist sans – Inter
+        sans: ['Inter', 'system-ui', 'sans-serif'],
+        // Monospace (for technical text)
+        mono: ['JetBrains Mono', 'Consolas', 'monospace'],
+      },
+
+      fontSize: {
+        'display': ['3rem', { lineHeight: '1.1', letterSpacing: '-0.02em' }],
+        'h1': ['2.25rem', { lineHeight: '1.2', letterSpacing: '-0.015em' }],
+        'h2': ['1.75rem', { lineHeight: '1.25', letterSpacing: '-0.01em' }],
+        'h3': ['1.375rem', { lineHeight: '1.3' }],
+        'h4': ['1.125rem', { lineHeight: '1.4' }],
+        'body-lg': ['1.0625rem', { lineHeight: '1.6' }],
+        'body': ['0.9375rem', { lineHeight: '1.6' }],
+        'body-sm': ['0.875rem', { lineHeight: '1.5' }],
+        'caption': ['0.75rem', { lineHeight: '1.4', letterSpacing: '0.01em' }],
+      },
+
+      // ── Spacing ──────────────────────────────────────────────────────────
+      spacing: {
+        '18': '4.5rem',
+        '22': '5.5rem',
+        '26': '6.5rem',
+        '30': '7.5rem',
+        '34': '8.5rem',
+        '38': '9.5rem',
+        '42': '10.5rem',
+        '46': '11.5rem',
+      },
+
+      // ── Border radius ────────────────────────────────────────────────────
+      borderRadius: {
+        'xs': '2px',
+        'sm': '4px',
+        DEFAULT: '6px',
+        'md': '8px',
+        'lg': '12px',
+        'xl': '16px',
+        'organic': '40% 60% 55% 45% / 45% 50% 50% 55%',
+      },
+
+      // ── Shadows – soft, natural ──────────────────────────────────────────
+      boxShadow: {
+        'paper': '0 1px 3px rgba(44, 37, 25, 0.08), 0 1px 2px rgba(44, 37, 25, 0.06)',
+        'card': '0 2px 8px rgba(44, 37, 25, 0.10), 0 1px 3px rgba(44, 37, 25, 0.08)',
+        'card-hover': '0 4px 16px rgba(44, 37, 25, 0.14), 0 2px 6px rgba(44, 37, 25, 0.10)',
+        'dialog': '0 8px 32px rgba(44, 37, 25, 0.18), 0 2px 8px rgba(44, 37, 25, 0.12)',
+        'inner-warm': 'inset 0 2px 4px rgba(44, 37, 25, 0.06)',
+      },
+
+      // ── Border colors ────────────────────────────────────────────────────
+      borderColor: {
+        'warm': '#D5C9B4',
+        'warm-dark': '#B8B4AD',
+      },
+
+      // ── Background images ────────────────────────────────────────────────
+      backgroundImage: {
+        'paper-grain': "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeBlend in='SourceGraphic' mode='multiply'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E\")",
+      },
+
+      // ── Animation ────────────────────────────────────────────────────────
+      transitionTimingFunction: {
+        'natural': 'cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+      },
+
+      transitionDuration: {
+        '250': '250ms',
+      },
+    },
+  },
+  plugins: [],
+};

@@ -1,0 +1,22 @@
+fastapi==0.115.5
+uvicorn[standard]==0.32.1
+sqlalchemy==2.0.36
+psycopg[binary]>=3.2.0
+pydantic==2.10.3
+pydantic-settings==2.6.1
+python-dotenv==1.0.1
+bcrypt==4.2.1
+python-jose[cryptography]==3.3.0
+cloudinary==1.41.0
+slowapi==0.1.9
+httpx==0.28.0
+
+# Tests / quality
+pytest==8.3.4
+pytest-asyncio==0.24.0
+pytest-bdd==7.3.0
+pytest-cov==6.0.0
+hypothesis==6.122.3
+ruff==0.8.4
+mypy==1.13.0
+types-python-jose==3.3.4.20240106
