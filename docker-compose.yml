@@ -5,15 +5,16 @@ services:
     image: postgres:16-alpine
     restart: unless-stopped
     environment:
-      POSTGRES_USER: reuse
-      POSTGRES_PASSWORD: reuse
-      POSTGRES_DB: reuse
+      POSTGRES_USER: ${POSTGRES_USER:-reuse}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-reuse}
+      POSTGRES_DB: ${POSTGRES_DB:-reuse}
     ports:
       - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U reuse"]
+      test:
+        ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-reuse} -d ${POSTGRES_DB:-reuse}"]
       interval: 5s
       timeout: 5s
       retries: 10
@@ -22,16 +23,20 @@ services:
     image: postgres:16-alpine
     restart: unless-stopped
     environment:
-      POSTGRES_USER: reuse_test
-      POSTGRES_PASSWORD: reuse_test
-      POSTGRES_DB: reuse_test
+      POSTGRES_USER: ${POSTGRES_TEST_USER:-reuse_test}
+      POSTGRES_PASSWORD: ${POSTGRES_TEST_PASSWORD:-reuse_test}
+      POSTGRES_DB: ${POSTGRES_TEST_DB:-reuse_test}
     ports:
       - "5433:5432"
+    volumes:
+      - pgdata_test:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U reuse_test"]
+      test:
+        ["CMD-SHELL", "pg_isready -U ${POSTGRES_TEST_USER:-reuse_test} -d ${POSTGRES_TEST_DB:-reuse_test}"]
       interval: 5s
       timeout: 5s
       retries: 10
 
 volumes:
   pgdata:
+  pgdata_test:

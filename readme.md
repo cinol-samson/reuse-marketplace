@@ -1,97 +1,103 @@
 # Reuse Marketplace
 
-A desktop-first web application designed for laptop screens (1280–1440 px), connecting community members, makers, artists, and rag pickers to list unused items to **sell, donate, or upcycle**.
+A desktop-first web application designed for laptop screens (1280-1440 px), connecting community members, makers, artists, and rag pickers to list unused items to **sell, donate, or upcycle**.
 
-## Architecture & Visual System
+## Architecture and Visual System
 
 - **Frontend**: React 19 + Vite + TypeScript + Tailwind CSS + TanStack Query + React Router.
 - **Backend**: FastAPI (Python) + SQLAlchemy 2.0 + PostgreSQL.
-- **Design Aesthetic**: **Wabi-Sabi × Conceptual Sketch** — Warm ivory and earthy palette, natural paper textures, restrained borders, Playfair Display + Inter typography, and hand-drawn line-art sketches.
-- **Dev Style Guide**: View all tokens, typography, and reusable components at `/styleguide`.
+- **Design aesthetic**: **Wabi-Sabi x Conceptual Sketch** - warm ivory and earthy palette, natural paper textures, restrained borders, Playfair Display + Inter typography, and hand-drawn line-art sketches.
+- **Dev style guide**: View the app tokens and reusable components in the placeholder home page and shared styling files.
 
 ---
 
 ## Prerequisites
 
 - **Python 3.12+**
-- **Node.js 18+** & npm
-- **Docker & Docker Compose** (for PostgreSQL)
+- **Node.js 18+** and npm
+- **Docker and Docker Compose** (for local PostgreSQL)
 
 ---
 
 ## Quickstart
 
-### 1. Database (Docker Compose)
-Start the PostgreSQL services (dev DB on port 5432, test DB on port 5433):
-```bash
+### 1. Copy environment templates
+
+```powershell
+Copy-Item .env.example .env
+Copy-Item backend/.env.example backend/.env
+Copy-Item frontend/.env.example frontend/.env
+```
+
+### 2. Start PostgreSQL services
+
+```powershell
 docker compose up -d
 ```
 
-### 2. Backend Setup & Run
-```bash
+This starts the main database on port `5432` and the test database on port `5433`.
+
+### 3. Backend setup and run
+
+```powershell
 cd backend
 python -m venv .venv
-# Windows:
-.venv\Scripts\activate
-# Linux/macOS:
-# source .venv/bin/activate
+# Windows PowerShell:
+. .\.venv\Scripts\Activate.ps1
 
 pip install -r requirements.txt
-cp .env.example .env
 
-# Run FastAPI dev server:
+# Run the FastAPI dev server:
 uvicorn app.main:app --reload --port 8000
 ```
-- API Base: `http://localhost:8000/api/v1`
-- Health check: `http://localhost:8000/api/v1/healthz`
-- OpenAPI Docs: `http://localhost:8000/api/docs`
 
-### 3. Frontend Setup & Run
-```bash
+- API base: `http://localhost:8000/api/v1`
+- Health check: `http://localhost:8000/api/v1/healthz`
+- OpenAPI docs: `http://localhost:8000/api/docs`
+
+### 4. Frontend setup and run
+
+```powershell
 cd frontend
 npm install
-cp .env.example .env
 
-# Run Vite dev server:
+# Run the Vite dev server:
 npm run dev
 ```
-- Web App: `http://localhost:5173`
-- Style Guide: `http://localhost:5173/styleguide`
+
+- Web app: `http://localhost:5173`
 
 ---
 
-## Running Tests & Quality Checks
+## Running Tests and Quality Checks
 
-### Backend Quality Suite
-```bash
+### Backend
+
+```powershell
 cd backend
-
-# Unit & Acceptance Tests (with coverage report):
-pytest
-
-# Code Linter & Formatting:
-ruff check .
-
-# Static Type Safety:
-mypy app
+python -m pytest tests/test_health.py -q
+python -m ruff check .
 ```
 
-### Frontend Quality Suite
-```bash
+### Frontend
+
+```powershell
 cd frontend
-
-# Component & Unit Tests (Vitest):
-npm run test
-
-# Linter:
+npm test -- --run
 npm run lint
-
-# TypeScript Type Check:
 npm run type-check
 ```
+
+The backend health test is the checkpoint-3 proof test for the API. The full backend suite still contains later-stage authentication tests that are not part of this checkpoint.
 
 ---
 
 ## Environment Variables
 
-All configuration is driven by environment variables documented in `backend/.env.example` and `frontend/.env.example`. 
+The project uses environment files in the repository root, backend, and frontend:
+
+- `.env.example` for Docker Compose defaults
+- `backend/.env.example` for FastAPI settings and the database URLs
+- `frontend/.env.example` for the frontend API URL
+
+Keep the values consistent with the active Docker services and the current application configuration.

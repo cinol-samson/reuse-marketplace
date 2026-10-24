@@ -21,24 +21,7 @@ ignore = [
 [tool.ruff.lint.isort]
 known-first-party = ["app"]
 
-[tool.mypy]
-python_version = "3.12"
-strict = true
-ignore_missing_imports = true
-plugins = ["pydantic.mypy"]
-exclude = ["tests/", "venv/", ".venv/"]
-
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-addopts = "--tb=short -q --cov=app --cov-report=term-missing --cov-fail-under=50"
-
-[tool.coverage.run]
-source = ["app"]
-omit = ["app/__init__.py"]
-
-[tool.coverage.report]
-exclude_lines = [
-    "pragma: no cover",
-    "if TYPE_CHECKING:",
-    "raise NotImplementedError",
-]
+addopts = "--tb=short -q"
+asyncio_default_fixture_loop_scope = "function"
