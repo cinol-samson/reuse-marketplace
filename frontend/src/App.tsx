@@ -5,10 +5,15 @@ import { AuthProvider } from './context/AuthContext';
 import { NavBar } from './components/common/NavBar';
 import { ProtectedRoute } from './components/common/ProtectedRoute';
 import { HomePage } from './pages/HomePage';
+import { FeedPage } from './pages/FeedPage';
+import { NearbyPage } from './pages/NearbyPage';
 import { StyleguidePage } from './pages/StyleguidePage';
 import { LoginPage } from './pages/LoginPage';
 import { RegisterPage } from './pages/RegisterPage';
 import { ProfilePage } from './pages/ProfilePage';
+import { NewListingPage } from './pages/NewListingPage';
+import { MyListingsPage } from './pages/MyListingsPage';
+import { ItemDetailPage } from './pages/ItemDetailPage';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -28,7 +33,7 @@ export const App: React.FC = () => {
             <NavBar />
             <main className="flex-1">
               <Routes>
-                <Route path="/" element={<HomePage />} />
+                <Route path="/" element={<FeedPage />} />
                 <Route path="/styleguide" element={<StyleguidePage />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/register" element={<RegisterPage />} />
@@ -40,9 +45,25 @@ export const App: React.FC = () => {
                     </ProtectedRoute>
                   }
                 />
-                <Route path="/nearby" element={<HomePage />} />
+                <Route path="/nearby" element={<NearbyPage />} />
                 <Route path="/artist-posts" element={<HomePage />} />
-                <Route path="/items/new" element={<HomePage />} />
+                <Route
+                  path="/items/new"
+                  element={
+                    <ProtectedRoute>
+                      <NewListingPage />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/items/me"
+                  element={
+                    <ProtectedRoute>
+                      <MyListingsPage />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route path="/items/:id" element={<ItemDetailPage />} />
                 <Route path="/inbox" element={<HomePage />} />
                 <Route path="/notifications" element={<HomePage />} />
                 <Route path="*" element={<Navigate to="/" replace />} />

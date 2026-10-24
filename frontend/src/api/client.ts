@@ -53,6 +53,10 @@ async function request<T>(
     throw new ApiError(code, message, res.status);
   }
 
+  if (res.status === 204) {
+    return undefined as T;
+  }
+
   return res.json() as Promise<T>;
 }
 
@@ -132,4 +136,141 @@ export function patchMe(token: string, payload: PatchMePayload): Promise<UserMe>
 
 export function getUserPublic(userId: number): Promise<UserPublic> {
   return request<UserPublic>(`/users/${userId}`);
+}
+
+// ── Items ───────────────────────────────────────────────────────────────────
+
+export interface ItemRecord {
+  id: number;
+  owner_id: number;
+  title: string;
+  description: string;
+  category_id: number;
+  listing_type: 'sale' | 'donation';
+  price: number | null;
+  delivery_option: 'pickup' | 'shipping' | 'both';
+  shipping_cost_payer: 'buyer' | 'seller' | 'split' | null;
+  shipping_notes: string | null;
+  lat: number | null;
+  lng: number | null;
+  area_label: string | null;
+  photos: string[];
+  status: 'available' | 'reserved' | 'completed' | 'hidden' | 'removed';
+  hidden_reason: string | null;
+  expires_at: string | null;
+  last_activity_at: string;
+  created_at: string;
+}
+
+export interface CreateItemPayload {
+  title: string;
+  description: string;
+  category_id: number;
+  listing_type: 'sale' | 'donation';
+  price?: number | null;
+  delivery_option?: 'pickup' | 'shipping' | 'both';
+  shipping_cost_payer?: 'buyer' | 'seller' | 'split' | null;
+  shipping_notes?: string | null;
+  lat?: number | null;
+  lng?: number | null;
+  area_label?: string | null;
+  photos: string[];
+  prohibited_items_confirmed?: boolean;
+}
+
+export function createItem(token: string, payload: CreateItemPayload): Promise<ItemRecord> {
+  return request<ItemRecord>('/items', {
+    method: 'POST',
+    body: JSON.stringify(payload),
+    token,
+  });
+}
+
+export function getMyItems(token: string): Promise<ItemRecord[]> {
+  return request<ItemRecord[]>('/items/me', { token });
+}
+
+export interface ItemListFilters {
+  category_id?: number;
+  listing_type?: 'sale' | 'donation';
+  q?: string;
+  lat?: number;
+  lng?: number;
+  radius_km?: number;
+  sort?: 'newest' | 'distance';
+  limit?: number;
+}
+
+export function getItems(filters: ItemListFilters = {}): Promise<ItemRecord[]> {
+  const params = new URLSearchParams();
+
+  if (filters.category_id) params.set('category_id', String(filters.category_id));
+  if (filters.listing_type) params.set('listing_type', filters.listing_type);
+  if (filters.q) params.set('q', filters.q);
+  if (filters.lat !== undefined) params.set('lat', String(filters.lat));
+  if (filters.lng !== undefined) params.set('lng', String(filters.lng));
+  if (filters.radius_km !== undefined) params.set('radius_km', String(filters.radius_km));
+  if (filters.sort) params.set('sort', filters.sort);
+  if (filters.limit) params.set('limit', String(filters.limit));
+
+  const query = params.toString();
+  return request<ItemRecord[]>(query ? `/items?${query}` : '/items');
+}
+
+export function getNearbyItems(
+  lat: number,
+  lng: number,
+  radiusKm = 5,
+  limit = 20,
+): Promise<ItemRecord[]> {
+  const params = new URLSearchParams({
+    lat: String(lat),
+    lng: String(lng),
+    radius_km: String(radiusKm),
+    limit: String(limit),
+  });
+
+  return request<ItemRecord[]>(`/items/nearby?${params.toString()}`);
+}
+
+export function getItem(itemId: number): Promise<ItemRecord> {
+  return request<ItemRecord>(`/items/${itemId}`);
+}
+
+export function patchItem(
+  token: string,
+  itemId: number,
+  payload: Partial<CreateItemPayload>,
+): Promise<ItemRecord> {
+  return request<ItemRecord>(`/items/${itemId}`, {
+    method: 'PATCH',
+    body: JSON.stringify(payload),
+    token,
+  });
+}
+
+export function deleteItem(token: string, itemId: number): Promise<void> {
+  return request<void>(`/items/${itemId}`, {
+    method: 'DELETE',
+    token,
+  });
+}
+
+export function renewItem(token: string, itemId: number): Promise<ItemRecord> {
+  return request<ItemRecord>(`/items/${itemId}/renew`, {
+    method: 'POST',
+    token,
+  });
+}
+
+export function updateItemStatus(
+  token: string,
+  itemId: number,
+  status: 'available' | 'reserved' | 'completed' | 'hidden' | 'removed',
+): Promise<ItemRecord> {
+  return request<ItemRecord>(`/items/${itemId}/status`, {
+    method: 'POST',
+    body: JSON.stringify({ status }),
+    token,
+  });
 }
