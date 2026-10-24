@@ -78,6 +78,23 @@ def db(engine):
         session.close()
 
 
+@pytest.fixture(autouse=True)
+def reset_rate_limiter():
+    """Clear slowapi's in-memory rate limit counters before each test.
+
+    Without this, the shared 'testclient' IP accumulates across function-scoped
+    tests and trips the 10/min limit before the test suite is halfway through.
+    """
+    from app.main import limiter
+
+    try:
+        # slowapi stores counts in its _storage backend; reset it each test.
+        limiter.reset()
+    except Exception:
+        pass  # If reset is not supported (e.g. Redis), skip silently.
+    yield
+
+
 @pytest.fixture(scope="function")
 def client(db):
     """FastAPI test client with the test DB session injected."""
