@@ -24,13 +24,13 @@ from app.database import Base
 # ── Enums ──────────────────────────────────────────────────────────────────
 
 
-class UserStatus(str, enum.Enum):
+class UserStatus(enum.StrEnum):
     active = "active"
     suspended = "suspended"
     deleted = "deleted"
 
 
-class ItemStatus(str, enum.Enum):
+class ItemStatus(enum.StrEnum):
     available = "available"
     reserved = "reserved"
     completed = "completed"
@@ -38,31 +38,31 @@ class ItemStatus(str, enum.Enum):
     removed = "removed"
 
 
-class HiddenReason(str, enum.Enum):
+class HiddenReason(enum.StrEnum):
     owner = "owner"
     expired = "expired"
     reports = "reports"
     admin = "admin"
 
 
-class ListingType(str, enum.Enum):
+class ListingType(enum.StrEnum):
     sale = "sale"
     donation = "donation"
 
 
-class DeliveryOption(str, enum.Enum):
+class DeliveryOption(enum.StrEnum):
     pickup = "pickup"
     shipping = "shipping"
     both = "both"
 
 
-class ShippingCostPayer(str, enum.Enum):
+class ShippingCostPayer(enum.StrEnum):
     buyer = "buyer"
     seller = "seller"
     split_cost = "split"
 
 
-class RequestStatus(str, enum.Enum):
+class RequestStatus(enum.StrEnum):
     pending = "pending"
     accepted = "accepted"
     declined = "declined"
@@ -71,12 +71,12 @@ class RequestStatus(str, enum.Enum):
     completed = "completed"
 
 
-class DeliveryChoice(str, enum.Enum):
+class DeliveryChoice(enum.StrEnum):
     pickup = "pickup"
     shipping = "shipping"
 
 
-class NotificationType(str, enum.Enum):
+class NotificationType(enum.StrEnum):
     request_received = "request_received"
     request_accepted = "request_accepted"
     request_declined = "request_declined"
@@ -93,7 +93,7 @@ class NotificationType(str, enum.Enum):
     report_resolved = "report_resolved"
 
 
-class ReportTargetType(str, enum.Enum):
+class ReportTargetType(enum.StrEnum):
     item = "item"
     artist_post = "artist_post"
     creation = "creation"
@@ -101,7 +101,7 @@ class ReportTargetType(str, enum.Enum):
     message_thread = "message_thread"
 
 
-class ReportReason(str, enum.Enum):
+class ReportReason(enum.StrEnum):
     not_as_described = "not_as_described"
     prohibited_item = "prohibited_item"
     scam_spam = "scam_spam"
@@ -110,24 +110,24 @@ class ReportReason(str, enum.Enum):
     other = "other"
 
 
-class ReportStatus(str, enum.Enum):
+class ReportStatus(enum.StrEnum):
     open = "open"
     dismissed = "dismissed"
     actioned = "actioned"
 
 
-class ArtistPostStatus(str, enum.Enum):
+class ArtistPostStatus(enum.StrEnum):
     open = "open"
     closed = "closed"
     hidden = "hidden"
 
 
-class CreationStatus(str, enum.Enum):
+class CreationStatus(enum.StrEnum):
     visible = "visible"
     hidden = "hidden"
 
 
-class AIRequestStatus(str, enum.Enum):
+class AIRequestStatus(enum.StrEnum):
     success = "success"
     failed = "failed"
 

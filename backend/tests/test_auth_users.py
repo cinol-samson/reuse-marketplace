@@ -63,8 +63,9 @@ Feature: Authenticated user endpoints
 
 from __future__ import annotations
 
-import pytest
+from sqlalchemy import func
 
+from app.models import User, UserStatus
 
 # ── Helpers ────────────────────────────────────────────────────────────────
 
@@ -179,8 +180,6 @@ class TestEC14SuspendedLogin:
 
     def test_suspended_cannot_login(self, client, db):
         _register(client)
-        from app.models import User, UserStatus
-        from sqlalchemy import func
         user = db.query(User).filter(func.lower(User.email) == "alice@example.com").first()
         assert user is not None
         user.status = UserStatus.suspended
@@ -253,8 +252,6 @@ class TestEC14TokenRejectedForSuspended:
         # Verify working first
         assert client.get("/api/v1/users/me", headers=headers).status_code == 200
 
-        from app.models import User, UserStatus
-        from sqlalchemy import func
         user = db.query(User).filter(func.lower(User.email) == "alice@example.com").first()
         assert user is not None
         user.status = UserStatus.suspended

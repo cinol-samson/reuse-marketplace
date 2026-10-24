@@ -2,20 +2,17 @@
 from __future__ import annotations
 
 from fastapi import APIRouter, Depends, HTTPException, Request, status
-from slowapi import Limiter
-from slowapi.util import get_remote_address
 from sqlalchemy import func
 from sqlalchemy.orm import Session
 
 from app.auth import create_access_token, hash_password, verify_password
 from app.config import get_settings
 from app.database import get_db
+from app.limiter import limiter
 from app.models import User, UserStatus
 from app.schemas import LoginRequest, RegisterRequest, TokenResponse
 
 router = APIRouter(prefix="/auth", tags=["auth"])
-
-limiter = Limiter(key_func=get_remote_address)
 
 
 def _email_exists(db: Session, email: str) -> bool:
@@ -28,7 +25,11 @@ def _email_exists(db: Session, email: str) -> bool:
     status_code=status.HTTP_201_CREATED,
 )
 @limiter.limit("10/minute")
-def register(request: Request, body: RegisterRequest, db: Session = Depends(get_db)) -> TokenResponse:
+def register(
+    request: Request,
+    body: RegisterRequest,
+    db: Session = Depends(get_db),
+) -> TokenResponse:
     """Register a new user account.
 
     EC1.1: duplicate email (case-insensitive) rejected.

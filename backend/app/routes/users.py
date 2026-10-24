@@ -7,14 +7,18 @@ from sqlalchemy.orm import Session
 from app.auth import get_current_user
 from app.config import get_settings
 from app.database import get_db
-from app.models import Request as RequestModel, RequestStatus, User, UserStatus
+from app.models import Request as RequestModel
+from app.models import RequestStatus, User, UserStatus
 from app.schemas import PatchMeRequest, UserMeResponse, UserPublicResponse
 
 router = APIRouter(prefix="/users", tags=["users"])
 
 
 def _completed_exchanges_count(user: User, db: Session) -> int:
-    """Count requests where this user is owner or requester, status=completed, counts_toward_total=True."""
+    """Count completed requests where this user is owner or requester.
+
+    counts_toward_total=True.
+    """
     from app.models import Item
 
     # As requester
