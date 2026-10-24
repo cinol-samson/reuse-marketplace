@@ -7,18 +7,45 @@
 @layer base {
   :root {
     color-scheme: light;
+    --paper-ivory: #f8f4ed;
+    --paper-warm: #fdfbf8;
+    --ink-earth: #2c2519;
+    --line-warm: #d5c9b4;
+    --stone-soft: #9b9589;
+  }
+
+  html {
+    scroll-behavior: smooth;
   }
 
   body {
-    @apply bg-ivory text-earth font-sans antialiased min-h-screen selection:bg-clay-100 selection:text-earth;
-    background-color: #F8F4ED;
+    @apply min-h-screen bg-ivory font-sans text-earth antialiased selection:bg-clay-100 selection:text-earth;
+    background-image:
+      radial-gradient(circle at top, rgba(181, 112, 74, 0.08), transparent 35%),
+      linear-gradient(to bottom, rgba(253, 251, 248, 0.8), rgba(248, 244, 237, 1));
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  #root {
+    min-height: 100vh;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply font-heading tracking-tight text-earth;
   }
 
-  /* Accessible focus indicators for keyboard navigation */
+  p {
+    @apply text-earth-100;
+  }
+
+  ::selection {
+    background: rgba(181, 112, 74, 0.15);
+  }
+
   :focus-visible {
     @apply outline-none ring-2 ring-clay-400 ring-offset-2 ring-offset-ivory;
   }
@@ -26,12 +53,16 @@
 
 @layer utilities {
   .subtle-paper {
-    background-color: #FDFBF8;
-    border: 1px solid #E8DFD0;
+    background-color: #fdfbf8;
+    border: 1px solid #e8dfd0;
   }
 
   .sketch-border {
     border-style: solid;
-    border-color: #D5C9B4;
+    border-color: #d5c9b4;
+  }
+
+  .text-balance {
+    text-wrap: balance;
   }
 }

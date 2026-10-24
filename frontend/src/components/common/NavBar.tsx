@@ -27,28 +27,29 @@ export const NavBar: React.FC = () => {
 
   const navItems = [...coreNavItems, ...authNavItems];
 
-  const activeClass = 'text-clay-400 font-semibold border-b-2 border-clay-300 pb-1';
+  const activeClass =
+    'text-clay-400 font-semibold border-b-2 border-clay-300 pb-1 transition-colors';
   const inactiveClass =
     'text-earth-100 hover:text-earth transition-colors pb-1 border-b-2 border-transparent';
 
   return (
-    <header className="sticky top-0 z-40 bg-ivory/95 backdrop-blur-xs border-b border-beige-200">
-      <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-        {/* Logo / Brand */}
-        <NavLink to="/" className="flex items-center gap-3 group">
-          <SketchHeroReuse size={36} className="text-clay-300 group-hover:scale-105 transition-transform" />
+    <header className="sticky top-0 z-40 border-b border-beige-200 bg-ivory/90 backdrop-blur-md">
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
+        <NavLink to="/" className="group flex items-center gap-3">
+          <div className="flex h-10 w-10 items-center justify-center rounded-full border border-beige-200 bg-beige-50 text-clay-300 shadow-paper transition-transform group-hover:scale-105">
+            <SketchHeroReuse size={28} />
+          </div>
           <div className="flex flex-col text-left">
-            <span className="font-heading text-h4 font-bold text-earth leading-none">
+            <span className="font-heading text-h4 font-bold leading-none text-earth">
               {strings.app.name}
             </span>
-            <span className="text-caption text-stone-400 hidden sm:inline">
+            <span className="hidden text-caption text-stone-400 sm:inline">
               giving things second life
             </span>
           </div>
         </NavLink>
 
-        {/* Top Navigation Links (Desktop First) */}
-        <nav className="flex items-center gap-6 text-body-sm" aria-label="Main Navigation">
+        <nav aria-label="Main navigation" className="flex items-center gap-5 text-body-sm">
           {navItems.map((item) => (
             <NavLink
               key={item.to}
@@ -61,8 +62,7 @@ export const NavBar: React.FC = () => {
           ))}
           <NavLink
             to="/styleguide"
-            className="text-caption px-2 py-1 rounded bg-beige-100 text-stone-500 hover:text-earth border border-beige-200"
-            title="Design System & Style Guide"
+            className="rounded bg-beige-100 px-2 py-1 text-caption text-stone-500 transition-colors hover:text-earth"
           >
             Styleguide
           </NavLink>

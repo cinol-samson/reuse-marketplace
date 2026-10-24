@@ -24,13 +24,12 @@ export const App: React.FC = () => {
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
         <BrowserRouter>
-          <div className="min-h-screen flex flex-col bg-ivory text-earth">
+          <div className="flex min-h-screen flex-col bg-ivory text-earth">
             <NavBar />
             <main className="flex-1">
               <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/styleguide" element={<StyleguidePage />} />
-                {/* Stage 1: Auth */}
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/register" element={<RegisterPage />} />
                 <Route
@@ -41,7 +40,6 @@ export const App: React.FC = () => {
                     </ProtectedRoute>
                   }
                 />
-                {/* Placeholder routes for stage 2+ pages */}
                 <Route path="/nearby" element={<HomePage />} />
                 <Route path="/artist-posts" element={<HomePage />} />
                 <Route path="/items/new" element={<HomePage />} />
@@ -50,7 +48,7 @@ export const App: React.FC = () => {
                 <Route path="*" element={<Navigate to="/" replace />} />
               </Routes>
             </main>
-            <footer className="border-t border-beige-200 py-6 text-center text-caption text-stone-400">
+            <footer className="border-t border-beige-200 bg-ivory/80 py-6 text-center text-caption text-stone-400 backdrop-blur-sm">
               <p>Reuse Marketplace · Desktop-first sustainable exchange · Wabi-Sabi aesthetic</p>
             </footer>
           </div>

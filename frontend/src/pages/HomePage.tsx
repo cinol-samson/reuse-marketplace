@@ -3,12 +3,42 @@ import { NavLink } from 'react-router-dom';
 import { Button } from '../components/common/Button';
 import { Card } from '../components/common/Card';
 import { strings } from '../strings';
-import { SketchHeroReuse, SketchWood, SketchMetal, SketchTextile } from '../components/sketches/SketchIcons';
+import {
+  SketchHeroReuse,
+  SketchWood,
+  SketchMetal,
+  SketchTextile,
+  SketchPaper,
+} from '../components/sketches/SketchIcons';
 
 interface HealthData {
   status: string;
   version: string;
 }
+
+const materialHighlights = [
+  {
+    title: 'Reclaimed wood',
+    description: 'Pallet strips, cedar scraps, and offcuts for furniture makers and home improvers.',
+    icon: SketchWood,
+  },
+  {
+    title: 'Metal hardware',
+    description: 'Brass fittings, copper pipe, steel stock, and small repair parts with new life ahead.',
+    icon: SketchMetal,
+  },
+  {
+    title: 'Textiles & thread',
+    description: 'Fabric remnants, canvas, denim, and yarn for makers who see value in the material.',
+    icon: SketchTextile,
+  },
+];
+
+const impactStats = [
+  { label: 'Active listings', value: '240+' },
+  { label: 'Makers connected', value: '1.2k' },
+  { label: 'Waste diverted', value: '6.8t' },
+];
 
 export const HomePage: React.FC = () => {
   const [health, setHealth] = useState<HealthData | null>(null);
@@ -34,28 +64,28 @@ export const HomePage: React.FC = () => {
   }, [apiUrl]);
 
   return (
-    <div className="max-w-7xl mx-auto px-6 py-12 text-left">
-      {/* Hero section */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-16">
-        <div className="lg:col-span-7 space-y-6">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-beige-100 text-stone-500 text-caption border border-beige-200">
-            <span className="w-2 h-2 rounded-full bg-sage-300" />
-            <span>Launch City Community Beta</span>
+    <div className="mx-auto max-w-7xl px-6 py-10 lg:py-14">
+      <section className="mb-16 grid items-center gap-10 lg:grid-cols-[1.2fr_0.8fr]">
+        <div className="space-y-7">
+          <div className="inline-flex items-center gap-2 rounded-full border border-beige-200 bg-beige-50 px-3 py-1 text-caption font-medium text-stone-500">
+            <span className="h-2 w-2 rounded-full bg-sage-300" />
+            Launch City Community Beta
           </div>
 
-          <h1 className="text-display font-heading text-earth">
-            Giving discarded objects a second thoughtful life.
-          </h1>
+          <div className="space-y-4">
+            <h1 className="max-w-xl text-display font-heading text-earth text-balance">
+              Giving discarded objects a second thoughtful life.
+            </h1>
+            <p className="max-w-xl text-body-lg text-earth-100">
+              A relaxed marketplace for residents, makers, artists, and rag pickers to give away,
+              trade, and rescue materials before they become waste.
+            </p>
+          </div>
 
-          <p className="text-body-lg text-earth-100 max-w-xl">
-            A quiet marketplace where residents, artists, makers, and rag pickers share, buy, and
-            donate unused materials for creative reuse and zero-waste upcycling.
-          </p>
-
-          <div className="flex flex-wrap items-center gap-4 pt-2">
+          <div className="flex flex-wrap items-center gap-4">
             <NavLink to="/nearby">
               <Button variant="primary" size="lg">
-                Explore Materials Nearby
+                Explore materials nearby
               </Button>
             </NavLink>
             <NavLink to="/styleguide">
@@ -64,109 +94,130 @@ export const HomePage: React.FC = () => {
               </Button>
             </NavLink>
           </div>
+
+          <div className="grid max-w-xl gap-4 sm:grid-cols-3">
+            {impactStats.map((stat) => (
+              <div key={stat.label} className="rounded-md border border-beige-200 bg-ivory-50 p-4 shadow-paper">
+                <div className="font-heading text-h3 text-earth">{stat.value}</div>
+                <div className="mt-1 text-caption text-stone-400">{stat.label}</div>
+              </div>
+            ))}
+          </div>
         </div>
 
-        <div className="lg:col-span-5 flex justify-center">
-          <div className="p-8 bg-ivory-50 rounded-lg border border-beige-200 shadow-card flex flex-col items-center text-center">
-            <SketchHeroReuse size={140} className="text-clay-300 mb-4" />
-            <span className="font-heading text-h3 text-earth">Wabi-Sabi Aesthetic</span>
-            <p className="text-body-sm text-stone-400 mt-2 max-w-xs">
-              Handcrafted, sustainable, and organic. Celebrating textures, repair, and creative
-              materials.
+        <div className="flex justify-center">
+          <div className="w-full max-w-md rounded-lg border border-beige-200 bg-ivory-50 p-8 text-center shadow-card">
+            <div className="mb-4 flex justify-center text-clay-300">
+              <SketchHeroReuse size={120} />
+            </div>
+            <div className="font-heading text-h3 text-earth">Wabi-Sabi exchange</div>
+            <p className="mt-2 text-body-sm text-stone-400">
+              Thoughtful reuse for craft, repair, and slow living — rooted in texture, care, and
+              local connection.
             </p>
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* Backend connection status badge */}
-      <div className="mb-12">
-        <Card padding="md" className="max-w-md">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <span
-                className={`w-3 h-3 rounded-full ${
-                  loading
-                    ? 'bg-warning-light animate-pulse'
-                    : health?.status === 'ok'
+      <section className="mb-16 rounded-xl border border-beige-200 bg-ivory-50 p-5 shadow-paper">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex items-center gap-3">
+            <span
+              className={`inline-block h-3 w-3 rounded-full ${
+                loading
+                  ? 'bg-warning animate-pulse'
+                  : health?.status === 'ok'
                     ? 'bg-success'
                     : 'bg-error'
-                }`}
-              />
-              <div>
-                <p className="text-body-sm font-semibold text-earth">
-                  {loading
-                    ? strings.health.checking
-                    : health?.status === 'ok'
+              }`}
+            />
+            <div>
+              <p className="text-body-sm font-semibold text-earth">
+                {loading
+                  ? strings.health.checking
+                  : health?.status === 'ok'
                     ? strings.health.connected
                     : strings.health.error}
-                </p>
-                <p className="text-caption text-stone-400 font-mono">
-                  {apiUrl}/healthz
-                </p>
-              </div>
+              </p>
+              <p className="text-caption font-mono text-stone-400">{apiUrl}/healthz</p>
             </div>
+          </div>
+
+          <div className="flex items-center gap-2">
             {health && (
-              <span className="text-caption font-mono bg-beige-100 px-2 py-1 rounded text-stone-500">
+              <span className="rounded bg-beige-100 px-2 py-1 text-caption font-mono text-stone-500">
                 v{health.version}
               </span>
             )}
-            {error && (
-              <span className="text-caption text-error-text font-mono">
-                {error}
-              </span>
-            )}
+            {error && <span className="text-caption font-mono text-error-text">{error}</span>}
+          </div>
+        </div>
+      </section>
+
+      <section className="mb-16">
+        <div className="mb-6 flex items-end justify-between gap-4">
+          <div>
+            <p className="text-caption font-semibold uppercase tracking-[0.12em] text-stone-400">
+              Explore by material
+            </p>
+            <h2 className="mt-2 text-h2 font-heading text-earth">Resource streams worth saving</h2>
+          </div>
+        </div>
+
+        <div className="grid gap-6 md:grid-cols-3">
+          {materialHighlights.map(({ title, description, icon: Icon }) => (
+            <Card key={title} hoverable padding="md" className="flex h-full flex-col gap-4">
+              <div className="flex h-12 w-12 items-center justify-center rounded-md bg-beige-100 text-clay-400">
+                <Icon size={32} />
+              </div>
+              <div>
+                <h3 className="text-h4 font-heading text-earth">{title}</h3>
+                <p className="mt-2 text-body-sm text-stone-400">{description}</p>
+              </div>
+            </Card>
+          ))}
+        </div>
+      </section>
+
+      <section className="grid gap-6 lg:grid-cols-[1fr_1.1fr]">
+        <Card padding="lg" className="bg-beige-100/60">
+          <p className="text-caption font-semibold uppercase tracking-[0.12em] text-stone-400">
+            Why it works
+          </p>
+          <h2 className="mt-3 text-h2 font-heading text-earth">Local reuse, built for slow design.</h2>
+          <div className="mt-6 space-y-4">
+            {[
+              'Discover useful items before they hit the landfill.',
+              'Connect with nearby makers and community members who value repair and repurposing.',
+              'Keep the experience calm, tactile, and human-centred.',
+            ].map((item) => (
+              <div key={item} className="flex items-start gap-3">
+                <span className="mt-1 flex h-5 w-5 items-center justify-center rounded-full bg-sage-100 text-sage-500">
+                  <SketchPaper size={12} />
+                </span>
+                <p className="text-body-sm text-earth-100">{item}</p>
+              </div>
+            ))}
           </div>
         </Card>
-      </div>
 
-      {/* Material Categories Showcase */}
-      <section className="mb-16">
-        <div className="flex items-end justify-between mb-6">
-          <div>
-            <h2 className="text-h2 font-heading text-earth">Featured Material Streams</h2>
-            <p className="text-body-sm text-stone-400 mt-1">
-              Connect directly with residents and creators sharing salvageable resources.
-            </p>
+        <Card padding="lg" className="bg-ivory-50">
+          <p className="text-caption font-semibold uppercase tracking-[0.12em] text-stone-400">
+            Community pulse
+          </p>
+          <div className="mt-5 space-y-4">
+            {[
+              { title: 'Oak planks available', detail: 'Downtown maker hub • today' },
+              { title: 'Denim offcuts needed', detail: 'Riverside studio • this afternoon' },
+              { title: 'Copper pipe bundle ready', detail: 'North lane exchange • tomorrow' },
+            ].map((entry) => (
+              <div key={entry.title} className="rounded-md border border-beige-200 bg-white/40 p-4">
+                <div className="font-heading text-h4 text-earth">{entry.title}</div>
+                <div className="mt-1 text-body-sm text-stone-400">{entry.detail}</div>
+              </div>
+            ))}
           </div>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <Card hoverable padding="md" className="flex items-start gap-4">
-            <div className="p-3 bg-beige-100 rounded text-clay-400 shrink-0">
-              <SketchWood size={32} />
-            </div>
-            <div>
-              <h3 className="text-h4 font-heading text-earth">Reclaimed Wood & Timber</h3>
-              <p className="text-body-sm text-stone-400 mt-1">
-                Hardwood pallets, cedar offcuts, vintage flooring, and carpentry salvage.
-              </p>
-            </div>
-          </Card>
-
-          <Card hoverable padding="md" className="flex items-start gap-4">
-            <div className="p-3 bg-beige-100 rounded text-clay-400 shrink-0">
-              <SketchMetal size={32} />
-            </div>
-            <div>
-              <h3 className="text-h4 font-heading text-earth">Metal & Hardware</h3>
-              <p className="text-body-sm text-stone-400 mt-1">
-                Copper piping, brass hardware, steel offcuts, and antique wire spools.
-              </p>
-            </div>
-          </Card>
-
-          <Card hoverable padding="md" className="flex items-start gap-4">
-            <div className="p-3 bg-beige-100 rounded text-clay-400 shrink-0">
-              <SketchTextile size={32} />
-            </div>
-            <div>
-              <h3 className="text-h4 font-heading text-earth">Textiles & Fabrics</h3>
-              <p className="text-body-sm text-stone-400 mt-1">
-                Denim remnants, upholstery swatches, canvas drop cloths, and yarn spools.
-              </p>
-            </div>
-          </Card>
-        </div>
+        </Card>
       </section>
     </div>
   );

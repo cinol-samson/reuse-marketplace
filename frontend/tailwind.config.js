@@ -3,9 +3,7 @@ export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
-      // ── Wabi-Sabi color tokens ───────────────────────────────────────────
       colors: {
-        // Base palette
         ivory: {
           DEFAULT: '#F8F4ED',
           50: '#FDFBF8',
@@ -53,7 +51,6 @@ export default {
           300: '#2C2519',
           text: '#2C2519',
         },
-        // Functional colors – muted, in the Wabi-Sabi family
         success: {
           DEFAULT: '#4A7C5F',
           light: '#EDF5F0',
@@ -75,79 +72,60 @@ export default {
           text: '#234F7A',
         },
       },
-
-      // ── Typography ───────────────────────────────────────────────────────
       fontFamily: {
-        // Heading: expressive serif – Playfair Display (loaded via CSS @import)
         heading: ['Playfair Display', 'Georgia', 'serif'],
-        // Interface: clean humanist sans – Inter
         sans: ['Inter', 'system-ui', 'sans-serif'],
-        // Monospace (for technical text)
         mono: ['JetBrains Mono', 'Consolas', 'monospace'],
       },
-
       fontSize: {
-        'display': ['3rem', { lineHeight: '1.1', letterSpacing: '-0.02em' }],
-        'h1': ['2.25rem', { lineHeight: '1.2', letterSpacing: '-0.015em' }],
-        'h2': ['1.75rem', { lineHeight: '1.25', letterSpacing: '-0.01em' }],
-        'h3': ['1.375rem', { lineHeight: '1.3' }],
-        'h4': ['1.125rem', { lineHeight: '1.4' }],
+        display: ['3rem', { lineHeight: '1.1', letterSpacing: '-0.02em' }],
+        h1: ['2.25rem', { lineHeight: '1.2', letterSpacing: '-0.015em' }],
+        h2: ['1.75rem', { lineHeight: '1.25', letterSpacing: '-0.01em' }],
+        h3: ['1.375rem', { lineHeight: '1.3' }],
+        h4: ['1.125rem', { lineHeight: '1.4' }],
         'body-lg': ['1.0625rem', { lineHeight: '1.6' }],
-        'body': ['0.9375rem', { lineHeight: '1.6' }],
+        body: ['0.9375rem', { lineHeight: '1.6' }],
         'body-sm': ['0.875rem', { lineHeight: '1.5' }],
-        'caption': ['0.75rem', { lineHeight: '1.4', letterSpacing: '0.01em' }],
+        caption: ['0.75rem', { lineHeight: '1.4', letterSpacing: '0.01em' }],
       },
-
-      // ── Spacing ──────────────────────────────────────────────────────────
       spacing: {
-        '18': '4.5rem',
-        '22': '5.5rem',
-        '26': '6.5rem',
-        '30': '7.5rem',
-        '34': '8.5rem',
-        '38': '9.5rem',
-        '42': '10.5rem',
-        '46': '11.5rem',
+        18: '4.5rem',
+        22: '5.5rem',
+        26: '6.5rem',
+        30: '7.5rem',
+        34: '8.5rem',
+        38: '9.5rem',
+        42: '10.5rem',
+        46: '11.5rem',
       },
-
-      // ── Border radius ────────────────────────────────────────────────────
       borderRadius: {
-        'xs': '2px',
-        'sm': '4px',
+        xs: '2px',
+        sm: '4px',
         DEFAULT: '6px',
-        'md': '8px',
-        'lg': '12px',
-        'xl': '16px',
-        'organic': '40% 60% 55% 45% / 45% 50% 50% 55%',
+        md: '8px',
+        lg: '12px',
+        xl: '16px',
+        organic: '40% 60% 55% 45% / 45% 50% 50% 55%',
       },
-
-      // ── Shadows – soft, natural ──────────────────────────────────────────
       boxShadow: {
-        'paper': '0 1px 3px rgba(44, 37, 25, 0.08), 0 1px 2px rgba(44, 37, 25, 0.06)',
-        'card': '0 2px 8px rgba(44, 37, 25, 0.10), 0 1px 3px rgba(44, 37, 25, 0.08)',
+        paper: '0 1px 3px rgba(44, 37, 25, 0.08), 0 1px 2px rgba(44, 37, 25, 0.06)',
+        card: '0 2px 8px rgba(44, 37, 25, 0.10), 0 1px 3px rgba(44, 37, 25, 0.08)',
         'card-hover': '0 4px 16px rgba(44, 37, 25, 0.14), 0 2px 6px rgba(44, 37, 25, 0.10)',
-        'dialog': '0 8px 32px rgba(44, 37, 25, 0.18), 0 2px 8px rgba(44, 37, 25, 0.12)',
+        dialog: '0 8px 32px rgba(44, 37, 25, 0.18), 0 2px 8px rgba(44, 37, 25, 0.12)',
         'inner-warm': 'inset 0 2px 4px rgba(44, 37, 25, 0.06)',
       },
-
-      // ── Border colors ────────────────────────────────────────────────────
       borderColor: {
-        'warm': '#D5C9B4',
+        warm: '#D5C9B4',
         'warm-dark': '#B8B4AD',
       },
-
-      // ── Background images ────────────────────────────────────────────────
       backgroundImage: {
         'paper-grain': "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeBlend in='SourceGraphic' mode='multiply'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E\")",
       },
-
-      // ── Animation ────────────────────────────────────────────────────────
       transitionTimingFunction: {
-        'natural': 'cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+        natural: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)',
       },
-
       transitionDuration: {
-        '250': '250ms',
+        250: '250ms',
       },
     },
   },
