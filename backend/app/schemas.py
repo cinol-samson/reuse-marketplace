@@ -77,3 +77,73 @@ class PatchMeRequest(BaseModel):
     # Rounded lat/lng for rag pickers / artists; stored rounded server-side
     home_lat: float | None = None
     home_lng: float | None = None
+
+
+# ── Item schemas ─────────────────────────────────────────────────────────────
+
+from app.models import DeliveryOption, HiddenReason, ItemStatus, ListingType, ShippingCostPayer
+
+
+class ItemCreateRequest(BaseModel):
+    title: str = Field(..., min_length=1, max_length=200)
+    description: str = Field(..., min_length=1, max_length=5000)
+    category_id: int
+    listing_type: ListingType
+    price: float | None = None
+    delivery_option: DeliveryOption = DeliveryOption.pickup
+    shipping_cost_payer: ShippingCostPayer | None = None
+    shipping_notes: str | None = Field(default=None, max_length=1000)
+    lat: float | None = None
+    lng: float | None = None
+    area_label: str | None = Field(default=None, max_length=200)
+    photos: list[str] = Field(default_factory=list)
+    prohibited_items_confirmed: bool = False
+
+    @field_validator("photos")
+    @classmethod
+    def validate_photos(cls, v: list[str]) -> list[str]:
+        return [str(photo).strip() for photo in v if str(photo).strip()]
+
+
+class ItemPatchRequest(BaseModel):
+    title: str | None = Field(default=None, min_length=1, max_length=200)
+    description: str | None = Field(default=None, min_length=1, max_length=5000)
+    category_id: int | None = None
+    listing_type: ListingType | None = None
+    price: float | None = None
+    delivery_option: DeliveryOption | None = None
+    shipping_cost_payer: ShippingCostPayer | None = None
+    shipping_notes: str | None = Field(default=None, max_length=1000)
+    lat: float | None = None
+    lng: float | None = None
+    area_label: str | None = Field(default=None, max_length=200)
+    photos: list[str] | None = None
+
+
+class ItemStatusUpdate(BaseModel):
+    status: ItemStatus
+
+
+class ItemResponse(BaseModel):
+    id: int
+    owner_id: int
+    title: str
+    description: str
+    category_id: int
+    listing_type: ListingType
+    price: float | None = None
+    delivery_option: DeliveryOption
+    shipping_cost_payer: ShippingCostPayer | None = None
+    shipping_notes: str | None = None
+    lat: float | None = None
+    lng: float | None = None
+    area_label: str | None = None
+    photos: list[str]
+    status: ItemStatus
+    hidden_reason: HiddenReason | None = None
+    last_activity_at: datetime
+    expires_at: datetime | None = None
+    expiry_reminder_sent_at: datetime | None = None
+    created_at: datetime
+
+    model_config = {"from_attributes": True}

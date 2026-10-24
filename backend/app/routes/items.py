@@ -275,7 +275,7 @@ def create_item(
             detail={"code": "category_not_found", "message": "Category not found."},
         )
 
-    created_at = _normalize_utc(current_user.created_at)
+    created_at = _normalize_utc(current_user.created_at) or datetime.now(UTC)
     user_age_days = (datetime.now(UTC) - created_at).total_seconds() / 86400
     if user_age_days <= settings.NEW_ACCOUNT_DAYS:
         today_start = datetime.now(UTC).replace(hour=0, minute=0, second=0, microsecond=0)
@@ -283,7 +283,7 @@ def create_item(
             db.query(Item)
             .filter(
                 Item.owner_id == current_user.id,
-                Item.created_at >= today_start,
+                _normalize_utc(Item.created_at) >= today_start,
             )
             .count()
         )

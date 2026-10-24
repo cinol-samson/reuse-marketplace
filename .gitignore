@@ -19,6 +19,10 @@ build/
 pip-wheel-metadata/
 *.whl
 
+# Local SQLite databases
+*.db
+backend/*.db
+
 # Virtual environments
 venv/
 .venv/
