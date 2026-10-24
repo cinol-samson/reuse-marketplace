@@ -75,3 +75,9 @@ Thumbs.db
 
 # Docker
 *.pid
+# Agent spec files (local only)
+/gemini.md
+/PROGRESS.md
+/docs/
+/stages/
+/reuse-marketplace-antigravity-spec.md

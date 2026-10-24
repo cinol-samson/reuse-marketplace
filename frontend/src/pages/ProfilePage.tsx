@@ -6,7 +6,7 @@ import { Input } from '../components/common/FormControls';
 import { Checkbox } from '../components/common/FormControls';
 import { Toast } from '../components/common/Toast';
 import { Card } from '../components/common/Card';
-import { getMe, patchMe, UserMe, ApiError } from '../api/client';
+import { getMe, patchMe, type UserMe, ApiError } from '../api/client';
 import { useAuth } from '../context/AuthContext';
 import { authStrings } from '../authStrings';
 
@@ -32,7 +32,6 @@ export const ProfilePage: React.FC = () => {
 
   useEffect(() => {
     if (!token) return;
-    setLoading(true);
     getMe(token)
       .then((data) => {
         setUser(data);

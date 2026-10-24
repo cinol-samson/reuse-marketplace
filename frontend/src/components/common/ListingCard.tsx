@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card } from './Card';
-import { Badge, ItemStatusType } from './Badge';
+import { Badge, type ItemStatusType } from './Badge';
 
 export interface ListingCardProps {
   id: number;
